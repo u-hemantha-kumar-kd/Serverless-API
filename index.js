@@ -46,7 +46,7 @@ async function getUser(MemberId) {
     return buildResponse(200, response.Item);
   }, (error) => {
     console.error('KEY NOT FOUND: ', error);
-    return error.message; 
+    return buildResponse(404, error.message);
   });
 }
 
@@ -90,7 +90,7 @@ async function saveUser(requestBody) {
     return buildResponse(200, body);
   }, (error) => {
     console.error('Do your custom error handling here. I am just gonna log it: ', error);
-    return error.message; 
+    return buildResponse(400, error.message); 
   })
 }
 
@@ -115,7 +115,7 @@ async function modifyUser(MemberId, updateKey, updateValue) {
     return buildResponse(200, body);
   }, (error) => {
     console.error('Do your custom error handling here. I am just gonna log it: ', error);
-    return error.message; 
+    return buildResponse(404, error.message);
   })
 }
 
@@ -136,7 +136,7 @@ async function deleteUser(MemberId) {
     return buildResponse(200, body);
   }, (error) => {
     console.error('Do your custom error handling here. I am just gonna log it: ', error);
-    return error.message; 
+    return buildResponse(400, error.message);
   })
 }
 
