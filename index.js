@@ -22,7 +22,7 @@ exports.handler = async function(event) {
     case event.httpMethod === 'POST' && event.path === userPath:
       response = await saveUser(JSON.parse(event.body));
       break;
-    case event.httpMethod === 'PATCH' && event.path === userPath:
+    case event.httpMethod === 'PUT' && event.path === userPath:
       const requestBody = JSON.parse(event.body);
       response = await modifyUser(requestBody.MemberId, requestBody.updateKey, requestBody.updateValue);
       break;
@@ -46,6 +46,7 @@ async function getUser(MemberId) {
     return buildResponse(200, response.Item);
   }, (error) => {
     console.error('KEY NOT FOUND: ', error);
+    return error.message; 
   });
 }
 
@@ -71,6 +72,7 @@ async function scanDynamoRecords(scanParams, itemArray) {
     return itemArray;
   } catch(error) {
     console.error('Do your custom error handling here. I am just gonna log it: ', error);
+    return error.message; 
   }
 }
 
@@ -88,6 +90,7 @@ async function saveUser(requestBody) {
     return buildResponse(200, body);
   }, (error) => {
     console.error('Do your custom error handling here. I am just gonna log it: ', error);
+    return error.message; 
   })
 }
 
@@ -112,6 +115,7 @@ async function modifyUser(MemberId, updateKey, updateValue) {
     return buildResponse(200, body);
   }, (error) => {
     console.error('Do your custom error handling here. I am just gonna log it: ', error);
+    return error.message; 
   })
 }
 
@@ -132,6 +136,7 @@ async function deleteUser(MemberId) {
     return buildResponse(200, body);
   }, (error) => {
     console.error('Do your custom error handling here. I am just gonna log it: ', error);
+    return error.message; 
   })
 }
 
